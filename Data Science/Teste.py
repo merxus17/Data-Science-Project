@@ -11,12 +11,14 @@ df.head()
 df.describe()
 ratings = pd.DataFrame(df.groupby('title')['rating'].mean())
 ratings.head()
+ratings['number_of_ratings'] = df.groupby('title')['rating'].count()
+ratings.head()
 import matplotlib.pyplot as plt
 ratings['rating'].hist(bins=50)
 ratings['number_of_ratings'].hist(bins=60)
 import seaborn as sns
 sns.jointplot(x='rating', y='number_of_ratings', data=ratings)
-movie_matrix = df.pivot_table(index='user_id', columns='title', values='rating')
+movie_matrix = df.pivot_table(index='userId', columns='title', values='rating')
 movie_matrix.head()
 ratings.sort_values('number_of_ratings', ascending=False).head(10)
 AFO_user_rating = movie_matrix['Air Force One (1997)']
